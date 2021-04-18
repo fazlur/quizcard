@@ -8,16 +8,8 @@ public class QuizCardBuilder {
     private JTextArea question;
     private JTextArea answer;
     private ArrayList<QuizCard> cardList;
-    private JFrame frame;
 
-    public static void main(String[] args) {
-        QuizCardBuilder builder = new QuizCardBuilder();
-        builder.go();
-    }
-
-    private void go() {
-
-        frame = new JFrame("Quiz Card Builder");
+    public JPanel cardBuilderTest(){
         JPanel mainPanel = new JPanel();
         Font bigFont = new Font("sanserif", Font.BOLD, 24);
         question = new JTextArea(6, 20);
@@ -38,7 +30,10 @@ public class QuizCardBuilder {
         aScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         aScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        JButton nextButton = new JButton("Next Card");
+        JButton saveButton = new JButton("Save Card");
+        saveButton.addActionListener(new SaveMenuListener());
+        JButton nextButton = new JButton("New Card");
+        nextButton.addActionListener(new NextCardListener());
 
         cardList = new ArrayList<QuizCard>();
 
@@ -49,24 +44,14 @@ public class QuizCardBuilder {
         mainPanel.add(qScroller);
         mainPanel.add(aLabel);
         mainPanel.add(aScroller);
+        mainPanel.add(saveButton);
         mainPanel.add(nextButton);
-        nextButton.addActionListener(new NextCardListener());
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem newMenuItem = new JMenuItem("New");
-        JMenuItem saveMenuItem = new JMenuItem("Save");
-        newMenuItem.addActionListener(new NewMenuListener());
 
-        saveMenuItem.addActionListener(new SaveMenuListener());
-        fileMenu.add(newMenuItem);
-        fileMenu.add(saveMenuItem);
-        menuBar.add(fileMenu);
-        frame.setJMenuBar(menuBar);
-        frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
-        frame.setSize(500, 600);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        return mainPanel;
     }
+
 
     public class NextCardListener implements ActionListener {
         @Override
@@ -84,8 +69,10 @@ public class QuizCardBuilder {
             cardList.add(card);
 
             JFileChooser fileSave = new JFileChooser(
-                    "C:\\Users\\fazlu\\Google Drive\\JavaStudy\\HeadFirstJava\\headFirstJava\\QuizCardBuilder");
-            fileSave.showSaveDialog(frame);
+                    "C:\\Users\\fazlu\\Google Drive\\JavaStudy\\Portfolio\\quizcard\\data");
+
+            fileSave.showSaveDialog(null);
+
             // Brings up dialog box for user to choose and save file
             saveFile(fileSave.getSelectedFile());
 
@@ -109,7 +96,7 @@ public class QuizCardBuilder {
         question.requestFocus();
     }
 
-    // Metod to save files
+    // Method to save files
     private void saveFile(File file) {
         // try-with-resources which close methods that are closable without the need of
         // a finally, note the conditions inside the () of the try

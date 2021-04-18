@@ -9,17 +9,11 @@ public class QuizCardPlayer {
     private ArrayList<QuizCard> cardList;
     private QuizCard currentCard;
     private int currentCardIndex;
-    private JFrame frame;
     private JButton nextButton;
+    private JButton loadButton;
     private boolean isShowAnswer;
 
-    public static void main(String[] args) {
-        QuizCardPlayer reader = new QuizCardPlayer();
-        reader.go();
-    }
-
-    private void go() {
-        frame = new JFrame("Quiz Card Player");
+    public JPanel cardPlayerTest(){
         JPanel mainPanel = new JPanel();
         Font bigFont = new Font("sanserif", Font.BOLD, 24);
 
@@ -32,23 +26,19 @@ public class QuizCardPlayer {
         JScrollPane qScroller = new JScrollPane(display);
         qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        loadButton = new JButton("Load CardSet");
+        loadButton.addActionListener(new LoadCardListener());
         nextButton = new JButton("Show Question");
-        mainPanel.add(qScroller);
-        mainPanel.add(nextButton);
         nextButton.addActionListener(new NextCardListener());
 
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem loadMenuItem = new JMenuItem("Load card set");
-        loadMenuItem.addActionListener(new OpenMenuListener());
-        fileMenu.add(loadMenuItem);
-        menuBar.add(fileMenu);
-        frame.setJMenuBar(menuBar);
-        frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
-        frame.setSize(640, 500);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainPanel.add(qScroller);
+        mainPanel.add(loadButton);
+        mainPanel.add(nextButton);
+
+        return mainPanel;
     }
+
 
     public class NextCardListener implements ActionListener {
 
@@ -72,13 +62,13 @@ public class QuizCardPlayer {
 
     }
 
-    public class OpenMenuListener implements ActionListener {
+    public class LoadCardListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileOpen = new JFileChooser(
-                    "C:\\Users\\fazlu\\Google Drive\\JavaStudy\\HeadFirstJava\\headFirstJava\\QuizCardBuilder");
-            fileOpen.showOpenDialog(frame);
+                    "C:\\Users\\fazlu\\Google Drive\\JavaStudy\\Portfolio\\quizcard\\data");
+            fileOpen.showOpenDialog(null);
             loadFile(fileOpen.getSelectedFile());
 
         }

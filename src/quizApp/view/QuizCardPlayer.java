@@ -1,3 +1,7 @@
+package quizApp.view;
+
+import quizApp.model.QuizCard;
+
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;

@@ -1,8 +1,18 @@
-import java.util.*;
-import java.awt.event.*;
+package quizApp.view;
+
+
+import quizApp.model.QuizCard;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+
 
 public class QuizCardBuilder {
     private JTextArea question;

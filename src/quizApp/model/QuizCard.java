@@ -1,3 +1,5 @@
+package quizApp.model;
+
 public class QuizCard {
     private String question;
     private String answer;

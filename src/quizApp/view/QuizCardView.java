@@ -1,15 +1,28 @@
+package quizApp.view;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class QuizCardView {
 
     private JFrame mainViewFrame = new JFrame();
+
+    private JPanel questionAnswerPanel = new QuestionAnswerPanel().cardText();
+
+    //Old imports to be deleted after
     private JPanel cardPlayerPanel = new QuizCardPlayer().cardPlayerTest();
     private JPanel cardBuilderPanel = new QuizCardBuilder().cardBuilderTest();
 
-    private void execute(){
+    private void buildGui(){
+        mainViewFrame.add(questionAnswerPanel);
+        mainViewFrame.setSize(500,500);
+        mainViewFrame.setVisible(true);
+        mainViewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    }
+
+    private void executeOld(){
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
         JMenuItem createCard = new JMenuItem("Create");
@@ -65,7 +78,9 @@ public class QuizCardView {
     public static void main(String[] args) {
 
        QuizCardView play = new QuizCardView();
-       play.execute();
+      // play.executeOld();
+        play.buildGui();
+
 
 
     }
